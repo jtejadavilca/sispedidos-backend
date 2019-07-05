@@ -23,9 +23,8 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
-	//Lombook
-	compileOnly 'org.projectlombok:lombok:1.18.8'
-	annotationProcessor 'org.projectlombok:lombok:1.18.8'
+	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
 }
 
 dependencyManagement {
