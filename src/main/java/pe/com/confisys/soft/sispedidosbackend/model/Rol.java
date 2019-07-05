@@ -1,9 +1,13 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package pe.com.confisys.soft.sispedidosbackend.model;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,30 +15,41 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ *
+ * @author USER
+ */
 @Entity
-@Table(name="tb_usuario")
-public class Usuario implements Serializable {
+@Table(name = "tb_rol")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r")
+    , @NamedQuery(name = "Rol.findByTbRolId", query = "SELECT r FROM Rol r WHERE r.tbRolId = :tbRolId")
+    , @NamedQuery(name = "Rol.findByDescripcion", query = "SELECT r FROM Rol r WHERE r.descripcion = :descripcion")
+    , @NamedQuery(name = "Rol.findByActivo", query = "SELECT r FROM Rol r WHERE r.activo = :activo")
+    , @NamedQuery(name = "Rol.findByUsuReg", query = "SELECT r FROM Rol r WHERE r.usuReg = :usuReg")
+    , @NamedQuery(name = "Rol.findByFecReg", query = "SELECT r FROM Rol r WHERE r.fecReg = :fecReg")
+    , @NamedQuery(name = "Rol.findByUsuModif", query = "SELECT r FROM Rol r WHERE r.usuModif = :usuModif")
+    , @NamedQuery(name = "Rol.findByFecModif", query = "SELECT r FROM Rol r WHERE r.fecModif = :fecModif")})
+public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "tb_usuario_id")
-    private Integer tbUsuarioId;
-    @Column(name = "usuario")
-    private String usuario;
-    @Column(name = "password")
-    private String password;
-    @Column(name = "en_sesion")
-    private Integer enSesion;
+    @Column(name = "tb_rol_id")
+    private Integer tbRolId;
+    @Column(name = "descripcion")
+    private String descripcion;
     @Column(name = "activo")
     private Integer activo;
     @Column(name = "usu_reg")
@@ -47,49 +62,32 @@ public class Usuario implements Serializable {
     @Column(name = "fec_modif")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecModif;
-    @JoinColumn(name = "tb_empleado_id", referencedColumnName = "tb_empleado_id")
-    @ManyToOne(optional = false)
-    private Empleado tbEmpleadoId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbUsuarioId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbRolId")
     private List<RolUsuario> rolUsuarioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbRolId")
+    private List<RolMenu> rolMenuList;
 
-    public Usuario() {
+    public Rol() {
     }
 
-    public Usuario(Integer tbUsuarioId) {
-        this.tbUsuarioId = tbUsuarioId;
+    public Rol(Integer tbRolId) {
+        this.tbRolId = tbRolId;
     }
 
-    public Integer getTbUsuarioId() {
-        return tbUsuarioId;
+    public Integer getTbRolId() {
+        return tbRolId;
     }
 
-    public void setTbUsuarioId(Integer tbUsuarioId) {
-        this.tbUsuarioId = tbUsuarioId;
+    public void setTbRolId(Integer tbRolId) {
+        this.tbRolId = tbRolId;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getEnSesion() {
-        return enSesion;
-    }
-
-    public void setEnSesion(Integer enSesion) {
-        this.enSesion = enSesion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Integer getActivo() {
@@ -132,14 +130,6 @@ public class Usuario implements Serializable {
         this.fecModif = fecModif;
     }
 
-    public Empleado getTbEmpleadoId() {
-        return tbEmpleadoId;
-    }
-
-    public void setTbEmpleadoId(Empleado tbEmpleadoId) {
-        this.tbEmpleadoId = tbEmpleadoId;
-    }
-
     @XmlTransient
     public List<RolUsuario> getRolUsuarioList() {
         return rolUsuarioList;
@@ -149,21 +139,30 @@ public class Usuario implements Serializable {
         this.rolUsuarioList = rolUsuarioList;
     }
 
+    @XmlTransient
+    public List<RolMenu> getRolMenuList() {
+        return rolMenuList;
+    }
+
+    public void setRolMenuList(List<RolMenu> rolMenuList) {
+        this.rolMenuList = rolMenuList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (tbUsuarioId != null ? tbUsuarioId.hashCode() : 0);
+        hash += (tbRolId != null ? tbRolId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
+        if (!(object instanceof Rol)) {
             return false;
         }
-        Usuario other = (Usuario) object;
-        if ((this.tbUsuarioId == null && other.tbUsuarioId != null) || (this.tbUsuarioId != null && !this.tbUsuarioId.equals(other.tbUsuarioId))) {
+        Rol other = (Rol) object;
+        if ((this.tbRolId == null && other.tbRolId != null) || (this.tbRolId != null && !this.tbRolId.equals(other.tbRolId))) {
             return false;
         }
         return true;
@@ -171,7 +170,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.com.confisys.soft.sispedidosbackend.model.Usuario[ tbUsuarioId=" + tbUsuarioId + " ]";
+        return "pe.com.confisys.soft.sispedidosbackend.model.Rol[ tbRolId=" + tbRolId + " ]";
     }
     
 }
