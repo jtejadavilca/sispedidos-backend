@@ -1,0 +1,23 @@
+catalogo: 001 - Cargos
+catalogo: 002 - Areas
+catalogo: 003 - Zonas
+catalogo: 004 - Tipos de Documento
+catalogo: 005 - Marcas de productos
+catalogo: 006 - Modelos de productos
+catalogo: 007 - Código de estados de pedidos
+
+
+
+-- INSERTS
+-- TB_CATALOGO
+INSERT INTO `tb_catalogo` (`param_catalogo`, `param_catalogo_elemento`, `descripcion_corta`, `descricpcion`, `tipo`, `usu_reg`) VALUES ('001', '002', 'GERENTE GENERAL', 'GERENTE GENERAL', 'D', 'JTV_ADMIN')
+
+
+
+
+
+
+
+
+
+CURRENT_TIMESTAMP
