@@ -7,16 +7,17 @@ package pe.com.confisys.soft.sispedidosbackend.model;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
  *
@@ -25,22 +26,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tb_catalogo")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Catalogo.findAll", query = "SELECT c FROM Catalogo c")
-    , @NamedQuery(name = "Catalogo.findByParamCatalogo", query = "SELECT c FROM Catalogo c WHERE c.catalogoPK.paramCatalogo = :paramCatalogo")
-    , @NamedQuery(name = "Catalogo.findByParamCatalogoElemento", query = "SELECT c FROM Catalogo c WHERE c.catalogoPK.paramCatalogoElemento = :paramCatalogoElemento")
-    , @NamedQuery(name = "Catalogo.findByDescripcionCorta", query = "SELECT c FROM Catalogo c WHERE c.descripcionCorta = :descripcionCorta")
-    , @NamedQuery(name = "Catalogo.findByTipo", query = "SELECT c FROM Catalogo c WHERE c.tipo = :tipo")
-    , @NamedQuery(name = "Catalogo.findByActivo", query = "SELECT c FROM Catalogo c WHERE c.activo = :activo")
-    , @NamedQuery(name = "Catalogo.findByUsuReg", query = "SELECT c FROM Catalogo c WHERE c.usuReg = :usuReg")
-    , @NamedQuery(name = "Catalogo.findByFecReg", query = "SELECT c FROM Catalogo c WHERE c.fecReg = :fecReg")
-    , @NamedQuery(name = "Catalogo.findByUsuModif", query = "SELECT c FROM Catalogo c WHERE c.usuModif = :usuModif")
-    , @NamedQuery(name = "Catalogo.findByFecModif", query = "SELECT c FROM Catalogo c WHERE c.fecModif = :fecModif")})
-public class Catalogo implements Serializable {
+@JsonRootName("catalogo")
+//@NamedQueries({
+//    @NamedQuery(name = "CatalogoEntity.findAll", query = "SELECT c FROM CatalogoEntity c")
+//    , @NamedQuery(name = "CatalogoEntity.findByParamCatalogo", query = "SELECT c FROM CatalogoEntity c WHERE c.catalogoEntityPK.paramCatalogo = :paramCatalogo")
+//    , @NamedQuery(name = "CatalogoEntity.findByParamCatalogoElemento", query = "SELECT c FROM CatalogoEntity c WHERE c.catalogoEntityPK.paramCatalogoElemento = :paramCatalogoElemento")
+//    , @NamedQuery(name = "CatalogoEntity.findByDescripcionCorta", query = "SELECT c FROM CatalogoEntity c WHERE c.descripcionCorta = :descripcionCorta")
+//    , @NamedQuery(name = "CatalogoEntity.findByTipo", query = "SELECT c FROM CatalogoEntity c WHERE c.tipo = :tipo")
+//    , @NamedQuery(name = "CatalogoEntity.findByActivo", query = "SELECT c FROM CatalogoEntity c WHERE c.activo = :activo")
+//    , @NamedQuery(name = "CatalogoEntity.findByUsuReg", query = "SELECT c FROM CatalogoEntity c WHERE c.usuReg = :usuReg")
+//    , @NamedQuery(name = "CatalogoEntity.findByFecReg", query = "SELECT c FROM CatalogoEntity c WHERE c.fecReg = :fecReg")
+//    , @NamedQuery(name = "CatalogoEntity.findByUsuModif", query = "SELECT c FROM CatalogoEntity c WHERE c.usuModif = :usuModif")
+//    , @NamedQuery(name = "CatalogoEntity.findByFecModif", query = "SELECT c FROM CatalogoEntity c WHERE c.fecModif = :fecModif")})
+public class CatalogoEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected CatalogoPK catalogoPK;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2962175660684147620L;
+
+	@EmbeddedId
+    protected CatalogoEntityPK catalogoEntityPK;
     @Column(name = "descripcion_corta")
     private String descripcionCorta;
     @Lob
@@ -61,23 +67,23 @@ public class Catalogo implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecModif;
 
-    public Catalogo() {
+    public CatalogoEntity() {
     }
 
-    public Catalogo(CatalogoPK catalogoPK) {
-        this.catalogoPK = catalogoPK;
+    public CatalogoEntity(CatalogoEntityPK catalogoEntityPK) {
+        this.catalogoEntityPK = catalogoEntityPK;
     }
 
-    public Catalogo(String paramCatalogo, String paramCatalogoElemento) {
-        this.catalogoPK = new CatalogoPK(paramCatalogo, paramCatalogoElemento);
+    public CatalogoEntity(String paramCatalogo, String paramCatalogoElemento) {
+        this.catalogoEntityPK = new CatalogoEntityPK(paramCatalogo, paramCatalogoElemento);
     }
 
-    public CatalogoPK getCatalogoPK() {
-        return catalogoPK;
+    public CatalogoEntityPK getCatalogoEntityPK() {
+        return catalogoEntityPK;
     }
 
-    public void setCatalogoPK(CatalogoPK catalogoPK) {
-        this.catalogoPK = catalogoPK;
+    public void setCatalogoEntityPK(CatalogoEntityPK catalogoEntityPK) {
+        this.catalogoEntityPK = catalogoEntityPK;
     }
 
     public String getDescripcionCorta() {
@@ -147,18 +153,18 @@ public class Catalogo implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (catalogoPK != null ? catalogoPK.hashCode() : 0);
+        hash += (catalogoEntityPK != null ? catalogoEntityPK.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Catalogo)) {
+        if (!(object instanceof CatalogoEntity)) {
             return false;
         }
-        Catalogo other = (Catalogo) object;
-        if ((this.catalogoPK == null && other.catalogoPK != null) || (this.catalogoPK != null && !this.catalogoPK.equals(other.catalogoPK))) {
+        CatalogoEntity other = (CatalogoEntity) object;
+        if ((this.catalogoEntityPK == null && other.catalogoEntityPK != null) || (this.catalogoEntityPK != null && !this.catalogoEntityPK.equals(other.catalogoEntityPK))) {
             return false;
         }
         return true;
@@ -166,7 +172,7 @@ public class Catalogo implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.com.confisys.soft.sispedidosbackend.model.Catalogo[ catalogoPK=" + catalogoPK + " ]";
+        return "pe.com.confisys.soft.sispedidosbackend.model.CatalogoEntity[ catalogoEntityPK=" + catalogoEntityPK + " ]";
     }
     
 }

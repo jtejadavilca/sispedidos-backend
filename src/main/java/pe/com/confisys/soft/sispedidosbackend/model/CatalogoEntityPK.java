@@ -6,6 +6,7 @@
 package pe.com.confisys.soft.sispedidosbackend.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -15,19 +16,24 @@ import javax.persistence.Embeddable;
  * @author USER
  */
 @Embeddable
-public class CatalogoPK implements Serializable {
+public class CatalogoEntityPK implements Serializable {
 
-    @Basic(optional = false)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6360487461675285231L;
+
+	@Basic(optional = false)
     @Column(name = "param_catalogo")
     private String paramCatalogo;
     @Basic(optional = false)
     @Column(name = "param_catalogo_elemento")
     private String paramCatalogoElemento;
 
-    public CatalogoPK() {
+    public CatalogoEntityPK() {
     }
 
-    public CatalogoPK(String paramCatalogo, String paramCatalogoElemento) {
+    public CatalogoEntityPK(String paramCatalogo, String paramCatalogoElemento) {
         this.paramCatalogo = paramCatalogo;
         this.paramCatalogoElemento = paramCatalogoElemento;
     }
@@ -59,10 +65,10 @@ public class CatalogoPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CatalogoPK)) {
+        if (!(object instanceof CatalogoEntityPK)) {
             return false;
         }
-        CatalogoPK other = (CatalogoPK) object;
+        CatalogoEntityPK other = (CatalogoEntityPK) object;
         if ((this.paramCatalogo == null && other.paramCatalogo != null) || (this.paramCatalogo != null && !this.paramCatalogo.equals(other.paramCatalogo))) {
             return false;
         }
@@ -74,7 +80,7 @@ public class CatalogoPK implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.com.confisys.soft.sispedidosbackend.model.CatalogoPK[ paramCatalogo=" + paramCatalogo + ", paramCatalogoElemento=" + paramCatalogoElemento + " ]";
+        return "pe.com.confisys.soft.sispedidosbackend.model.CatalogoEntityPK[ paramCatalogo=" + paramCatalogo + ", paramCatalogoElemento=" + paramCatalogoElemento + " ]";
     }
     
 }
