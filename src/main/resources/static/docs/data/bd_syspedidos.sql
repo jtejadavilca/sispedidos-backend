@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2019-07-04 23:32:23
+Date: 2019-07-06 23:11:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -113,8 +113,8 @@ CREATE TABLE `tb_cliente` (
 DROP TABLE IF EXISTS `tb_datos_personales`;
 CREATE TABLE `tb_datos_personales` (
   `tb_datos_personales_id` int(11) NOT NULL AUTO_INCREMENT,
-  `tb_persona_contacto_tb_persona_contacto_id` int(11) NOT NULL,
-  `tb_empleado_tb_empleado_id` int(11) NOT NULL,
+  `tb_persona_contacto_id` int(11) DEFAULT NULL,
+  `tb_empleado_id` int(11) DEFAULT NULL,
   `cod_tipo_documento` varchar(6) DEFAULT NULL COMMENT 'catalogo: 004',
   `num_documento` varchar(45) DEFAULT NULL,
   `nombres` varchar(100) DEFAULT NULL,
@@ -131,15 +131,16 @@ CREATE TABLE `tb_datos_personales` (
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
   PRIMARY KEY (`tb_datos_personales_id`),
-  KEY `fk_tb_datos_personales_tb_persona_contacto_idx` (`tb_persona_contacto_tb_persona_contacto_id`),
-  KEY `fk_tb_datos_personales_tb_empleado1_idx` (`tb_empleado_tb_empleado_id`),
-  CONSTRAINT `fk_tb_datos_personales_tb_empleado1` FOREIGN KEY (`tb_empleado_tb_empleado_id`) REFERENCES `tb_empleado` (`tb_empleado_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tb_datos_personales_tb_persona_contacto` FOREIGN KEY (`tb_persona_contacto_tb_persona_contacto_id`) REFERENCES `tb_persona_contacto` (`tb_persona_contacto_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `fk_tb_datos_personales_tb_persona_contacto_idx` (`tb_persona_contacto_id`),
+  KEY `fk_tb_datos_personales_tb_empleado1_idx` (`tb_empleado_id`),
+  CONSTRAINT `fk_tb_datos_personales_tb_empleado1` FOREIGN KEY (`tb_empleado_id`) REFERENCES `tb_empleado` (`tb_empleado_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tb_datos_personales_tb_persona_contacto` FOREIGN KEY (`tb_persona_contacto_id`) REFERENCES `tb_persona_contacto` (`tb_persona_contacto_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_datos_personales
 -- ----------------------------
+INSERT INTO `tb_datos_personales` VALUES ('1', null, '1', '004002', '45656565', 'SYSADMIN', 'SYSADMIN', 'SYSADMIN', 'jtejadavilca@gmail.com', '1990-04-04', '987789877', null, null, '1', 'JTV_ADMIN', '2019-07-04 23:40:52', null, null);
 
 -- ----------------------------
 -- Table structure for tb_direccion
