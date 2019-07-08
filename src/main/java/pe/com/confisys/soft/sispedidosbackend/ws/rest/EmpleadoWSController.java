@@ -2,6 +2,8 @@ package pe.com.confisys.soft.sispedidosbackend.ws.rest;
 
 import java.util.Optional;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,13 +18,20 @@ import pe.com.confisys.soft.sispedidosbackend.service.EmpleadoService;
 @RestController
 @RequestMapping("/syspedidos/empleados")
 public class EmpleadoWSController {
-
+	private static final Log logger = LogFactory.getLog(EmpleadoWSController.class);
 	@Autowired
 	private EmpleadoService empleadoService;
 	
 	@GetMapping(path="/all")
 	protected Iterable<EmpleadoEntity> getAll(){
-		return this.empleadoService.listarTodos();
+		logger.info("[getAll] << ENTER");
+
+		Iterable<EmpleadoEntity> lstEmpleados;
+		
+		lstEmpleados = this.empleadoService.listarTodos(); 
+		
+		logger.info("[getAll] >> EXIT");
+		return lstEmpleados;
 	}
 
 	@GetMapping(path="/{empleadoId}")
