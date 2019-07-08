@@ -25,13 +25,13 @@ public abstract class BaseEntity implements Serializable{
     @Basic(optional = false)
     protected Integer id;
 
-    @Column(name = "activo")
-    protected Integer activo;
-    @Column(name = "usu_reg")
+    @Column(name = "activo", nullable = false)
+    protected Integer activo = 1;
+    @Column(name = "usu_reg", nullable = false)
     protected String usuReg;
     @Column(name = "fec_reg")
     @Temporal(TemporalType.TIMESTAMP)
-    protected Date fecReg;
+    protected Date fecReg = new Date();
     @Column(name = "usu_modif")
     protected String usuModif;
     @Column(name = "fec_modif")
