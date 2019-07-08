@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2019-07-06 23:11:03
+Date: 2019-07-08 01:12:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,8 +25,8 @@ CREATE TABLE `tb_catalogo` (
   `descripcion_corta` varchar(200) DEFAULT NULL,
   `descricpcion` text,
   `tipo` char(1) DEFAULT NULL COMMENT 'C: Cabecera\nD: Detalle',
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
@@ -71,8 +71,8 @@ CREATE TABLE `tb_categoria_producto` (
   `tb_categoria_producto_id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_categoria` varchar(100) DEFAULT NULL,
   `tb_categoria_producto_id_padre` int(11) DEFAULT NULL,
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
@@ -94,8 +94,8 @@ CREATE TABLE `tb_cliente` (
   `num_ruc` varchar(11) DEFAULT NULL,
   `razon_social` varchar(400) DEFAULT NULL,
   `cod_zona` varchar(6) DEFAULT NULL,
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
@@ -113,8 +113,6 @@ CREATE TABLE `tb_cliente` (
 DROP TABLE IF EXISTS `tb_datos_personales`;
 CREATE TABLE `tb_datos_personales` (
   `tb_datos_personales_id` int(11) NOT NULL AUTO_INCREMENT,
-  `tb_persona_contacto_id` int(11) DEFAULT NULL,
-  `tb_empleado_id` int(11) DEFAULT NULL,
   `cod_tipo_documento` varchar(6) DEFAULT NULL COMMENT 'catalogo: 004',
   `num_documento` varchar(45) DEFAULT NULL,
   `nombres` varchar(100) DEFAULT NULL,
@@ -125,22 +123,20 @@ CREATE TABLE `tb_datos_personales` (
   `celular` varchar(45) DEFAULT NULL,
   `telefono1` varchar(45) DEFAULT NULL,
   `telefono2` varchar(45) DEFAULT NULL,
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
-  PRIMARY KEY (`tb_datos_personales_id`),
-  KEY `fk_tb_datos_personales_tb_persona_contacto_idx` (`tb_persona_contacto_id`),
-  KEY `fk_tb_datos_personales_tb_empleado1_idx` (`tb_empleado_id`),
-  CONSTRAINT `fk_tb_datos_personales_tb_empleado1` FOREIGN KEY (`tb_empleado_id`) REFERENCES `tb_empleado` (`tb_empleado_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tb_datos_personales_tb_persona_contacto` FOREIGN KEY (`tb_persona_contacto_id`) REFERENCES `tb_persona_contacto` (`tb_persona_contacto_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`tb_datos_personales_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_datos_personales
 -- ----------------------------
-INSERT INTO `tb_datos_personales` VALUES ('1', null, '1', '004002', '45656565', 'SYSADMIN', 'SYSADMIN', 'SYSADMIN', 'jtejadavilca@gmail.com', '1990-04-04', '987789877', null, null, '1', 'JTV_ADMIN', '2019-07-04 23:40:52', null, null);
+INSERT INTO `tb_datos_personales` VALUES ('1', '004002', '45656565', 'SYSADMIN', 'SYSADMIN', 'SYSADMIN', 'jtejadavilca@gmail.com', '1990-04-04', '987789877', null, null, '1', 'JTV_ADMIN', '2019-07-04 23:40:52', null, null);
+INSERT INTO `tb_datos_personales` VALUES ('2', '004002', '45749544', 'LINDA', 'HUARANGA', 'PAREDES', 'linda.hparedes', '1990-04-03', '991368783', null, null, '1', 'JTV_ADMIN', '2019-07-08 01:10:59', null, null);
+INSERT INTO `tb_datos_personales` VALUES ('3', '004002', '45749544', 'VASCO', 'TEJADA', 'HUARANGA', 'vasco.giusep@gmail.com', '1990-04-03', '991368783', null, null, '1', 'JTV_ADMIN', '2019-07-08 01:10:59', null, null);
 
 -- ----------------------------
 -- Table structure for tb_direccion
@@ -162,8 +158,8 @@ CREATE TABLE `tb_direccion` (
   `piso` int(11) DEFAULT NULL,
   `bloque` varchar(80) DEFAULT NULL,
   `predeterminado` int(11) DEFAULT '1' COMMENT '1:Predeterminado\n2: No predeterminado\nUn cliente puede terner más de una dirección, por lo que debe haber un predeterminado.\nUn empleado debería tener al menos registrada una dirección',
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
@@ -186,23 +182,28 @@ CREATE TABLE `tb_direccion` (
 DROP TABLE IF EXISTS `tb_empleado`;
 CREATE TABLE `tb_empleado` (
   `tb_empleado_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tb_datos_personales_id` int(11) NOT NULL,
   `cod_cargo` varchar(6) DEFAULT NULL COMMENT 'catalogo: 001',
   `cod_area` varchar(6) DEFAULT NULL COMMENT 'catalogo: 002',
   `cod_zona` varchar(6) DEFAULT NULL COMMENT 'catalogo: 003',
   `fec_ini_vigencia` date DEFAULT NULL,
   `fec_fin_vigencia` date DEFAULT NULL,
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
-  PRIMARY KEY (`tb_empleado_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`tb_empleado_id`),
+  KEY `fk_tb_empleado_tb_datos_personales1_idx` (`tb_datos_personales_id`),
+  CONSTRAINT `fk_tb_empleado_tb_datos_personales1` FOREIGN KEY (`tb_datos_personales_id`) REFERENCES `tb_datos_personales` (`tb_datos_personales_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_empleado
 -- ----------------------------
-INSERT INTO `tb_empleado` VALUES ('1', '001001', '001001', '001001', '1900-01-01', '2599-12-31', '1', 'JTV_ADMIN', '2019-07-04 23:31:17', null, null);
+INSERT INTO `tb_empleado` VALUES ('1', '1', '001001', '001001', '001001', '1900-01-01', '2599-12-31', '1', 'JTV_ADMIN', '2019-07-04 23:31:17', null, null);
+INSERT INTO `tb_empleado` VALUES ('2', '2', '001001', '001001', '001001', '1899-12-31', '2599-12-30', '1', 'JTV_ADMIN', '2019-07-08 01:10:59', null, null);
+INSERT INTO `tb_empleado` VALUES ('3', '3', '001001', '001001', '001001', '1899-12-31', '2599-12-30', '1', 'JTV_ADMIN', '2019-07-08 01:10:59', null, null);
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -214,8 +215,8 @@ CREATE TABLE `tb_menu` (
   `icono` varchar(50) DEFAULT NULL,
   `visible_web` int(11) DEFAULT '1' COMMENT '1: Visible en web\n0: No visible en web',
   `visible_movil` int(11) DEFAULT '0' COMMENT '1: Visible en móvil\n0: No visible en móvil',
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
@@ -241,7 +242,7 @@ CREATE TABLE `tb_pedido` (
   `monto_final` double DEFAULT NULL COMMENT 'Monto total neto, luego de aplicar algún descuento en caso se dé.',
   `usu_entrega` varchar(45) DEFAULT NULL,
   `origen_registro` int(11) NOT NULL COMMENT '1: APP MOVIL\n2: APP WEB\n3: BATCH',
-  `activo` int(11) DEFAULT '1',
+  `activo` int(11) NOT NULL DEFAULT '1',
   `usu_reg` varchar(45) DEFAULT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
@@ -268,8 +269,8 @@ CREATE TABLE `tb_pedido_detalle` (
   `precio_unidad_final` float DEFAULT NULL,
   `cantidad` float DEFAULT NULL,
   `observacion` text,
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
@@ -291,15 +292,18 @@ DROP TABLE IF EXISTS `tb_persona_contacto`;
 CREATE TABLE `tb_persona_contacto` (
   `tb_persona_contacto_id` int(11) NOT NULL AUTO_INCREMENT,
   `tb_cliente_id` int(11) NOT NULL,
+  `tb_datos_personales_id` int(11) NOT NULL,
   `seleccion_defecto` int(11) DEFAULT '1' COMMENT '0:No es seleccionada por defecto\n1: Seleccionada por defecto (Para atender pedido, recepcionar pedido, firmar recepción, etc)',
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
   PRIMARY KEY (`tb_persona_contacto_id`),
   KEY `fk_tb_persona_contacto_tb_cliente1_idx` (`tb_cliente_id`),
-  CONSTRAINT `fk_tb_persona_contacto_tb_cliente1` FOREIGN KEY (`tb_cliente_id`) REFERENCES `tb_cliente` (`tb_cliente_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_tb_persona_contacto_tb_datos_personales1_idx` (`tb_datos_personales_id`),
+  CONSTRAINT `fk_tb_persona_contacto_tb_cliente1` FOREIGN KEY (`tb_cliente_id`) REFERENCES `tb_cliente` (`tb_cliente_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tb_persona_contacto_tb_datos_personales1` FOREIGN KEY (`tb_datos_personales_id`) REFERENCES `tb_datos_personales` (`tb_datos_personales_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -324,8 +328,8 @@ CREATE TABLE `tb_producto` (
   `color` varchar(45) DEFAULT NULL,
   `precio_venta` float DEFAULT NULL,
   `precio_compra` float DEFAULT NULL,
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` varchar(45) DEFAULT NULL,
@@ -346,8 +350,8 @@ DROP TABLE IF EXISTS `tb_rol`;
 CREATE TABLE `tb_rol` (
   `tb_rol_id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(100) DEFAULT NULL,
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
@@ -366,8 +370,8 @@ CREATE TABLE `tb_rol_menu` (
   `tb_rol_menu_id` int(11) NOT NULL AUTO_INCREMENT,
   `tb_rol_id` int(11) NOT NULL,
   `tb_menu_id` int(11) NOT NULL,
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
@@ -390,8 +394,8 @@ CREATE TABLE `tb_rol_usuario` (
   `tb_rol_usuario_id` int(11) NOT NULL AUTO_INCREMENT,
   `tb_rol_id` int(11) NOT NULL,
   `tb_usuario_id` int(11) NOT NULL,
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
@@ -413,8 +417,8 @@ DROP TABLE IF EXISTS `tb_ubigeo`;
 CREATE TABLE `tb_ubigeo` (
   `tb_ubigeo_id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(80) DEFAULT NULL,
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT CURRENT_TIMESTAMP,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
@@ -434,8 +438,8 @@ CREATE TABLE `tb_usuario` (
   `usuario` varchar(45) DEFAULT NULL,
   `password` varchar(200) DEFAULT NULL,
   `en_sesion` int(11) DEFAULT '0' COMMENT '1: Está en sesion\n0: No está en sesión',
-  `activo` int(11) DEFAULT '1',
-  `usu_reg` varchar(45) DEFAULT NULL,
+  `activo` int(11) NOT NULL DEFAULT '1',
+  `usu_reg` varchar(45) NOT NULL,
   `fec_reg` datetime DEFAULT NULL,
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
