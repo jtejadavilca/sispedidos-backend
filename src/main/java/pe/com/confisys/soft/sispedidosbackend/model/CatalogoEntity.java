@@ -50,8 +50,8 @@ public class CatalogoEntity implements Serializable {
     @Column(name = "descripcion_corta")
     private String descripcionCorta;
     @Lob
-    @Column(name = "descricpcion")
-    private String descricpcion;
+    @Column(name = "descripcion")
+    private String descripcion;
     @Column(name = "tipo")
     private Character tipo;
     @Column(name = "activo")
@@ -94,12 +94,12 @@ public class CatalogoEntity implements Serializable {
         this.descripcionCorta = descripcionCorta;
     }
 
-    public String getDescricpcion() {
-        return descricpcion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescricpcion(String descricpcion) {
-        this.descricpcion = descricpcion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Character getTipo() {
