@@ -1,13 +1,13 @@
 package pe.com.confisys.soft.sispedidosbackend.service;
 
-import java.util.Optional;
+import pe.com.confisys.soft.sispedidosbackend.utils.ResponseBean;
 
 public interface BaseService<T> {
-	Iterable<T> listarTodos();
+	ResponseBean<T> listarTodos();
 
-	Optional<T> obtenerPorId(Integer id);
+	ResponseBean<T> obtenerPorId(Integer id);
 	
-	T crear(T entity);
+	ResponseBean<T> crear(T entity);
 	
 	T actualizar(T entity);
 }
