@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2019-07-08 01:12:53
+Date: 2019-07-10 02:02:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,7 +23,7 @@ CREATE TABLE `tb_catalogo` (
   `param_catalogo` varchar(3) NOT NULL,
   `param_catalogo_elemento` varchar(3) NOT NULL,
   `descripcion_corta` varchar(200) DEFAULT NULL,
-  `descricpcion` text,
+  `descripcion` text,
   `tipo` char(1) DEFAULT NULL COMMENT 'C: Cabecera\nD: Detalle',
   `activo` int(11) NOT NULL DEFAULT '1',
   `usu_reg` varchar(45) NOT NULL,
@@ -39,12 +39,20 @@ CREATE TABLE `tb_catalogo` (
 INSERT INTO `tb_catalogo` VALUES ('001', '000', 'CARGOS', 'CARGOS', 'C', '1', 'JTV_ADMIN', '2019-07-04 23:11:57', null, null);
 INSERT INTO `tb_catalogo` VALUES ('001', '001', 'SYSADMIN', 'SYSADMIN', 'D', '1', 'JTV_ADMIN', '2019-07-04 23:13:05', null, null);
 INSERT INTO `tb_catalogo` VALUES ('001', '002', 'GERENTE GENERAL', 'GERENTE GENERAL', 'D', '1', 'JTV_ADMIN', '2019-07-04 23:14:03', null, null);
+INSERT INTO `tb_catalogo` VALUES ('001', '003', 'VENDEDOR', 'VENDEDOR', 'D', '1', 'JTV_ADMIN', '2019-07-09 01:32:57', null, null);
 INSERT INTO `tb_catalogo` VALUES ('002', '000', 'AREAS', 'AREAS', 'C', '1', 'JTV_ADMIN', '2019-07-04 23:15:31', null, null);
 INSERT INTO `tb_catalogo` VALUES ('002', '001', 'SYSADMIN', 'SYSADMIN', 'D', '1', 'JTV_ADMIN', '2019-07-04 23:15:50', null, null);
 INSERT INTO `tb_catalogo` VALUES ('002', '002', 'GERENCIA', 'GERENCIA', 'D', '1', 'JTV_ADMIN', '2019-07-04 23:16:19', null, null);
+INSERT INTO `tb_catalogo` VALUES ('002', '003', 'COMERCIAL', 'ÁREA COMERCIAL', 'D', '1', 'JTV_ADMIN', '2019-07-10 01:06:04', null, null);
 INSERT INTO `tb_catalogo` VALUES ('003', '000', 'ZONAS', 'ZONAS', 'C', '1', 'JTV_ADMIN', '2019-07-04 23:17:19', null, null);
 INSERT INTO `tb_catalogo` VALUES ('003', '001', 'SYSADMIN', 'SYSADMIN', 'D', '1', 'JTV_ADMIN', '2019-07-04 23:17:37', null, null);
-INSERT INTO `tb_catalogo` VALUES ('003', '002', 'LIMA', 'LIMA', 'D', '1', 'JTV_ADMIN', '2019-07-04 23:17:54', null, null);
+INSERT INTO `tb_catalogo` VALUES ('003', '002', 'LIMA METROPOLITANA', 'LIMA METROPOLITANA', 'D', '1', 'JTV_ADMIN', '2019-07-04 23:17:54', null, null);
+INSERT INTO `tb_catalogo` VALUES ('003', '003', 'LIMA NORTE CHICO', 'LIMA NORTE CHICO', 'D', '1', 'JTV_ADMIN', '2019-07-10 01:10:11', null, null);
+INSERT INTO `tb_catalogo` VALUES ('003', '004', 'LIMA SUR CHICO', 'LIMA SUR CHICO', 'D', '1', 'JTV_ADMIN', '2019-07-10 01:10:31', null, null);
+INSERT INTO `tb_catalogo` VALUES ('003', '005', 'LIMA CENTRO - SIERRA CENTRAL', 'LIMA CENTRO - SIERRA CENTRAL', 'D', '1', 'JTV_ADMIN', '2019-07-10 01:11:41', null, null);
+INSERT INTO `tb_catalogo` VALUES ('003', '006', 'NORTE GRANDE', 'NORTE GRANDE', 'D', '1', 'JTV_ADMIN', '2019-07-10 01:12:07', null, null);
+INSERT INTO `tb_catalogo` VALUES ('003', '007', 'SUR GRANDE', 'SUR GRANDE', 'D', '1', 'JTV_ADMIN', '2019-07-10 01:12:28', null, null);
+INSERT INTO `tb_catalogo` VALUES ('003', '008', 'SELVA', 'SELVA', 'D', '1', 'JTV_ADMIN', '2019-07-10 01:12:56', null, null);
 INSERT INTO `tb_catalogo` VALUES ('004', '000', 'TIPOS DE DOCUMENTOS', 'TIPOS DE DOCUMENTOS', 'C', '1', 'JTV_ADMIN', '2019-07-04 23:18:53', null, null);
 INSERT INTO `tb_catalogo` VALUES ('004', '001', 'SYSADMIN', 'SYSADMIN', 'D', '1', 'JTV_ADMIN', '2019-07-04 23:19:22', null, null);
 INSERT INTO `tb_catalogo` VALUES ('004', '002', 'DNI', 'DOCUMENTO NACIONAL DE IDENTIDAD', 'D', '1', 'JTV_ADMIN', '2019-07-04 23:19:36', null, null);
