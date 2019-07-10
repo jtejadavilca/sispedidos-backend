@@ -1,0 +1,20 @@
+DATOS PARA EMPLEADO:
+----------------
+usuReg			-> Usuario logeado quien realiza el registro
+codCargo		-> Codigo del cargo (Por ahora 001003: Vendedor)
+codArea			-> Código del área del empleado (Por ahora 002003: Comercial)
+codZona			-> Código de la zona asignada (Por ahora 003002: LIMA METROPOLITANA)
+fecIniVigencia	-> 1900-01-01 (Debería ser fecha de ingreso a la empresa)
+fecFinVigencia	-> 2599-12-31 (Debería actualizarce cuando el trabajar deja de trabajar en la empresa)
+datosPersonales	-> 
+
+	usuReg				-> Usuario logeado quien realiza el registro
+	codTipoDocumento	-> Código de tipo de documento (Por ahora 004002: DNI)
+	numDocumento		-> Número de documento del empleado
+	nombres				-> Nombres del empleado
+	apellidoPaterno		-> Apellido parterno del empleado
+	apellidoMaterno		-> Apellido marterno del empleado
+	email				-> Email del empleado
+	fecNacimiento		-> Fecha de nacimiento del empleado
+	celular				-> Numero de celular del empleado
+
