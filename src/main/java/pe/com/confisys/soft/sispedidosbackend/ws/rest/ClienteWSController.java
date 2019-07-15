@@ -12,46 +12,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import pe.com.confisys.soft.sispedidosbackend.model.EmpleadoEntity;
-import pe.com.confisys.soft.sispedidosbackend.service.EmpleadoService;
+import pe.com.confisys.soft.sispedidosbackend.model.ClienteEntity;
+import pe.com.confisys.soft.sispedidosbackend.service.ClienteService;
 import pe.com.confisys.soft.sispedidosbackend.utils.Constantes;
 import pe.com.confisys.soft.sispedidosbackend.utils.ResponseBean;
 
 @RestController
-@RequestMapping("/syspedidos/empleados")
+@RequestMapping("/syspedidos/clientes")
 @CrossOrigin(origins = Constantes.URL_CLIENTE_CROSS_ORIGIN, methods= {RequestMethod.GET,RequestMethod.POST})
-public class EmpleadoWSController {
-	private static final Log logger = LogFactory.getLog(EmpleadoWSController.class);
+public class ClienteWSController {
+	
+	private static final Log logger = LogFactory.getLog(ClienteWSController.class);
 	@Autowired
-	private EmpleadoService empleadoService;
+	private ClienteService clienteService;
 	
 	@GetMapping(path="/all")
-	protected ResponseBean<EmpleadoEntity> getAll() {
+	protected ResponseBean<ClienteEntity> getAll() {
 		logger.info("[getAll] << ENTER");
-		ResponseBean<EmpleadoEntity> respuesta;
+		ResponseBean<ClienteEntity> respuesta;
 		
-		respuesta = this.empleadoService.listarTodos(); 
+		respuesta = this.clienteService.listarTodos(); 
 		logger.info("[getAll] >> EXIT");
 		return respuesta;
 	}
 
-	@GetMapping(path="/{empleadoId}")
-	protected ResponseBean<EmpleadoEntity> getById(@PathVariable Integer empleadoId){
+	@GetMapping(path="/{clienteId}")
+	protected ResponseBean<ClienteEntity> getById(@PathVariable Integer clienteId){
 		logger.info("[getById] << ENTER");
-		ResponseBean<EmpleadoEntity> respuesta;
+		ResponseBean<ClienteEntity> respuesta;
 		
-		respuesta = this.empleadoService.obtenerPorId(empleadoId);
+		respuesta = this.clienteService.obtenerPorId(clienteId);
 		logger.info("[getById] >> EXIT");
 		return respuesta;
 	}
 
-	@PostMapping(path="/empleado")
-	protected ResponseBean<EmpleadoEntity> saveEmpleado(@RequestBody EmpleadoEntity empleado){
-		logger.info("[saveEmpleado] << ENTER");
-		ResponseBean<EmpleadoEntity> respuesta;
+	@PostMapping(path="/cliente")
+	protected ResponseBean<ClienteEntity> saveCliente(@RequestBody ClienteEntity cliente){
+		logger.info("[saveCliente] << ENTER");
+		ResponseBean<ClienteEntity> respuesta;
 		
-		respuesta = this.empleadoService.crear(empleado);
-		logger.info("[saveEmpleado] >> EXIT");
+		respuesta = this.clienteService.crear(cliente);
+		logger.info("[saveCliente] >> EXIT");
 		return respuesta;
 	}
 }

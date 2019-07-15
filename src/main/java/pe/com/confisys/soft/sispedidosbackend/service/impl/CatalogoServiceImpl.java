@@ -1,5 +1,7 @@
 package pe.com.confisys.soft.sispedidosbackend.service.impl;
 
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -30,6 +32,23 @@ public class CatalogoServiceImpl implements CatalogoService {
 					.collect(Collectors.toList());
 			
 			respuesta.setDataLst(itCat);
+		} catch (Exception ex) {
+			PedidosUtils.buildResponseError(respuesta, ex);
+		}
+		return respuesta;
+	}
+
+	@Override
+	public ResponseBean<CatalogoEntity> cargarCatalogos() {
+
+		ResponseBean<CatalogoEntity> respuesta;
+		
+		respuesta = new ResponseBean<>();
+		try {
+			Map<Object, List<CatalogoEntity>> lstMapCatalogos = StreamSupport.stream(catalogoRepository.findAll().spliterator(), false)
+					.filter(catalogo -> !Constantes.COD_SYSADMIN.equals(catalogo.getDescripcion()))
+					.collect(Collectors.groupingBy(cat -> cat.getCatalogoEntityPK().getParamCatalogo()));
+			respuesta.setDataObj(lstMapCatalogos);
 		} catch (Exception ex) {
 			PedidosUtils.buildResponseError(respuesta, ex);
 		}

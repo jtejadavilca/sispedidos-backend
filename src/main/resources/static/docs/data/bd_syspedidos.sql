@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2019-07-10 02:02:07
+Date: 2019-07-12 23:56:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -137,7 +137,7 @@ CREATE TABLE `tb_datos_personales` (
   `usu_modif` varchar(45) DEFAULT NULL,
   `fec_modif` datetime DEFAULT NULL,
   PRIMARY KEY (`tb_datos_personales_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_datos_personales
@@ -145,6 +145,8 @@ CREATE TABLE `tb_datos_personales` (
 INSERT INTO `tb_datos_personales` VALUES ('1', '004002', '45656565', 'SYSADMIN', 'SYSADMIN', 'SYSADMIN', 'jtejadavilca@gmail.com', '1990-04-04', '987789877', null, null, '1', 'JTV_ADMIN', '2019-07-04 23:40:52', null, null);
 INSERT INTO `tb_datos_personales` VALUES ('2', '004002', '45749544', 'LINDA', 'HUARANGA', 'PAREDES', 'linda.hparedes', '1990-04-03', '991368783', null, null, '1', 'JTV_ADMIN', '2019-07-08 01:10:59', null, null);
 INSERT INTO `tb_datos_personales` VALUES ('3', '004002', '45749544', 'VASCO', 'TEJADA', 'HUARANGA', 'vasco.giusep@gmail.com', '1990-04-03', '991368783', null, null, '1', 'JTV_ADMIN', '2019-07-08 01:10:59', null, null);
+INSERT INTO `tb_datos_personales` VALUES ('4', '004002', '45656569', 'María Esther', 'Vilca', 'Chavez', 'matesh024@gmail.com', '1989-12-31', '989898989', null, null, '1', 'JTV_ADMIN', '2019-07-11 22:19:44', null, null);
+INSERT INTO `tb_datos_personales` VALUES ('5', '004002', '45656568', 'Abelardo', 'Tejada', 'Infantas', 'matesh024@gmail.com', '1989-12-31', '989898989', null, null, '1', 'JTV_ADMIN', '2019-07-11 22:22:58', null, null);
 
 -- ----------------------------
 -- Table structure for tb_direccion
@@ -204,7 +206,7 @@ CREATE TABLE `tb_empleado` (
   PRIMARY KEY (`tb_empleado_id`),
   KEY `fk_tb_empleado_tb_datos_personales1_idx` (`tb_datos_personales_id`),
   CONSTRAINT `fk_tb_empleado_tb_datos_personales1` FOREIGN KEY (`tb_datos_personales_id`) REFERENCES `tb_datos_personales` (`tb_datos_personales_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_empleado
@@ -212,6 +214,8 @@ CREATE TABLE `tb_empleado` (
 INSERT INTO `tb_empleado` VALUES ('1', '1', '001001', '001001', '001001', '1900-01-01', '2599-12-31', '1', 'JTV_ADMIN', '2019-07-04 23:31:17', null, null);
 INSERT INTO `tb_empleado` VALUES ('2', '2', '001001', '001001', '001001', '1899-12-31', '2599-12-30', '1', 'JTV_ADMIN', '2019-07-08 01:10:59', null, null);
 INSERT INTO `tb_empleado` VALUES ('3', '3', '001001', '001001', '001001', '1899-12-31', '2599-12-30', '1', 'JTV_ADMIN', '2019-07-08 01:10:59', null, null);
+INSERT INTO `tb_empleado` VALUES ('4', '4', '001003', '002003', '003002', '2019-07-11', '2100-11-30', '1', 'JTV_ADMIN', '2019-07-11 22:19:44', null, null);
+INSERT INTO `tb_empleado` VALUES ('5', '5', '001003', '002003', '003002', '2019-07-11', '2100-11-30', '1', 'JTV_ADMIN', '2019-07-11 22:22:58', null, null);
 
 -- ----------------------------
 -- Table structure for tb_menu

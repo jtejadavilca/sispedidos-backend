@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pe.com.confisys.soft.sispedidosbackend.model.CatalogoEntity;
 import pe.com.confisys.soft.sispedidosbackend.service.CatalogoService;
+import pe.com.confisys.soft.sispedidosbackend.utils.Constantes;
 import pe.com.confisys.soft.sispedidosbackend.utils.ResponseBean;
 
 @RestController
 @RequestMapping("/syspedidos/catalogos")
-@CrossOrigin(origins = "http://localhost:4200", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins = Constantes.URL_CLIENTE_CROSS_ORIGIN, methods= {RequestMethod.GET,RequestMethod.POST})
 public class CatalogoWSController {
 //obtenerCatalogo
 
@@ -31,6 +32,15 @@ public class CatalogoWSController {
 		
 		respuesta = this.catalogoService.obtenerCatalogo(codCatalogo); 
 		logger.info("[obtenerCatalogo] >> EXIT");
+		return respuesta;
+	}
+	@GetMapping(path="/cargar-catalogos")
+	protected ResponseBean<CatalogoEntity> cargarCatalogos() {
+		logger.info("[cargarCatalogos] << ENTER");
+		ResponseBean<CatalogoEntity> respuesta;
+		
+		respuesta = this.catalogoService.cargarCatalogos(); 
+		logger.info("[cargarCatalogos] >> EXIT");
 		return respuesta;
 	}
 }
